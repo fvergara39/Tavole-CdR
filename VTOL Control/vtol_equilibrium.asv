@@ -1,0 +1,52 @@
+%% Find equilibrium point
+z = optimvar('p',8);
+%(z1, z2, x3, x4, x5, x6) = (x, y, θ, x_dot, y_dot, θ_dot)
+z0.z = [10 10 10 10 10 10 10 10];
+
+% Create equations as optimization equality expressions.
+d=-0.1;
+
+eq1 = z(2) == 0;
+eq2 = z(3) == 0;
+eq3 = z(4) == 0;
+eq4 = -sin(z(3))*z(7) + d*cos(z(3))*z(8) == 0;
+eq5 = cos(z(3))*z(7) + d*sin(z(3))*z(8) - 1 == 0;
+eq6 = z(8) == 0;
+
+% Create an equation problem, and place the equations in the problem.
+prob = eqnproblem;
+prob.Equations.eq1 = eq1;
+prob.Equations.eq2 = eq2;
+prob.Equations.eq3 = eq3;
+prob.Equations.eq4 = eq4;
+prob.Equations.eq5 = eq5;
+prob.Equations.eq6 = eq6;
+
+% Review the problem
+show(prob)
+
+% Solve the problem starting from the initial point p0. For the problem-based approach, specify the initial point as a structure, with the variable names as the fields of the structure. For this problem, there is only one variable, x.
+[sol,fval,exitflag] = solve(prob,p0)
+
+% Diplay the solution
+disp(sol.p)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
